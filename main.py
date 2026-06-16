@@ -1,3 +1,5 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from __future__ import annotations
 
 from typing import List
@@ -35,12 +37,22 @@ from matrix_electre import (
 app = FastAPI(title="J-ELECTRE API", version="0.1")
 
 
+
 def to_numpy_matrix(m: List[List[float]]) -> np.ndarray:
     try:
         return np.array(m, dtype=float)
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Invalid matrix data: {e}")
 
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permite que qualquer site (incluindo a Vercel) acesse a API
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite POST, GET, OPTIONS, etc.
+    allow_headers=["*"],
+)
+# ------------------------------------------------------
 
 @app.post("/electre/i", response_model=ElectreResponse)
 def electre_i(req: ElectreIRequest):
