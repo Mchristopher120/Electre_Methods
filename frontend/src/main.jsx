@@ -8,6 +8,8 @@ import ElectreIVPage from './pages/ElectreIVPage'
 import ElectreIIPage from './pages/ElectreIIPage'
 import ElectreIIIPage from './pages/ElectreIIIPage'
 import ElectreTriPage from './pages/ElectreTriPage'
+import axios from 'axios'
+axios.defaults.baseURL = 'https://j-electre-api.onrender.com'
 
 function App(){
   return (
